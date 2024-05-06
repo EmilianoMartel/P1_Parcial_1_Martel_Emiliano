@@ -7,8 +7,8 @@ using namespace std;
 class Warrior {
 private:
 	string name;
-	Weapon weapon = Weapon("Grips", Grips,1,1,1);
-	Armor armor = Armor("Clothes", Clothes,0,0);
+	Weapon weapon = Weapon("Grips", Grips, 1, 1, 1);
+	Armor armor = Armor("Clothes", Clothes, 0, 0);
 	float maxHealth;
 	float currentHealth;
 public:
@@ -17,5 +17,5 @@ public:
 	void setArmor(Armor armor);
 	string getName();
 	float reciveDamage(float damage);
-	float attack(Warrior warrior, AttackType attackType, bool& isCrit);
+	float attack(Warrior warrior, AttackType attackType, bool isCrit);
 };

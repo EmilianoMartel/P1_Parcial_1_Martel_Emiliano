@@ -130,6 +130,7 @@
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Ejercicio1.cpp" />
     <ClCompile Include="Warrior.cpp" />
+    <ClCompile Include="WarriorCreator.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +138,7 @@
     <ClInclude Include="ArmorType.h" />
     <ClInclude Include="AttackType.h" />
     <ClInclude Include="Warrior.h" />
+    <ClInclude Include="WarriorCreator.h" />
     <ClInclude Include="WeaponType.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>

@@ -15,5 +15,5 @@ private:
 
 public:
 	Weapon(string name, WeaponType weaponType, float attack,float critRate,float critDamage);
-	float getDamage(AttackType attackType, float critRateReduction,bool isCrit);
+	float getDamage(AttackType attackType, float critRateReduction,bool& isCrit);
 };

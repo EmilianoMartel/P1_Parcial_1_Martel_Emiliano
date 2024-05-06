@@ -8,10 +8,10 @@ Weapon::Weapon(string name, WeaponType weaponType, float attack, float critRate,
 	this->critDamage = critDamage;
 }
 
-float Weapon::getDamage(AttackType attackType, float critRateReduction, bool isCrit) {
+float Weapon::getDamage(AttackType attackType, float critRateReduction, bool& isCrit) {
 	int max = 100;
 	int chances = rand() % 100;
-	int damage = attack;
+	float damage = attack;
 
 	isCrit = false;
 

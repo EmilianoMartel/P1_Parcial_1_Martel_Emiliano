@@ -24,10 +24,11 @@ string Warrior::getName()
 
 float Warrior::reciveDamage(float damage) 
 {
-
+	currentHealth -= damage;
+	return currentHealth;
 }
 
-float Warrior::attack(Warrior warrior, AttackType attackType, bool& isCrit)
+float Warrior::attack(Warrior warrior, AttackType attackType, bool isCrit)
 {
-	warrior.reciveDamage(weapon.getDamage(attackType,warrior.armor.getCritRateReduction(), isCrit));
+	return weapon.getDamage(attackType,warrior.armor.getCritRateReduction(), isCrit);
 }
