@@ -1,5 +1,13 @@
 #include "Weapon.h"
 
+Weapon::Weapon() {
+	name = "Grips";
+	weaponType = Grips;
+	attack = 1;
+	critDamage = 1;
+	critRate = 1;
+}
+
 Weapon::Weapon(string name, WeaponType weaponType, float attack, float critRate, float critDamage) {
 	this->name = name;
 	this->weaponType = weaponType;
@@ -21,4 +29,8 @@ float Weapon::getDamage(AttackType attackType, float critRateReduction, bool& is
 	}
 
 	return attack;
+}
+
+string Weapon::getName(){
+	return name;
 }

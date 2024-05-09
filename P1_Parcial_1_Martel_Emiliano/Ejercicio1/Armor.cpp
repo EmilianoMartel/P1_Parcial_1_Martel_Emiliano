@@ -1,5 +1,12 @@
 #include "Armor.h"
 
+Armor::Armor() {
+	name = "Clothes";
+	armorType = Clothes;
+	defense = 1;
+	weight = 1;
+}
+
 Armor::Armor(string name, ArmorType armorType, float defense, float weight)
 {
 	this->name = name;
@@ -14,6 +21,10 @@ float Armor::getDamageReductionPercent(float damage)
 		return 99;
 	}
 	return damage / defense;
+}
+
+string Armor::getName() {
+	return name;
 }
 
 float Armor::getCritRateReduction()

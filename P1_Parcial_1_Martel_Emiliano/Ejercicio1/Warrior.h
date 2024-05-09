@@ -7,11 +7,12 @@ using namespace std;
 class Warrior {
 private:
 	string name;
-	Weapon weapon = Weapon("Grips", Grips, 1, 1, 1);
-	Armor armor = Armor("Clothes", Clothes, 0, 0);
+	Weapon weapon = Weapon();
+	Armor armor = Armor();
 	float maxHealth;
 	float currentHealth;
 public:
+	Warrior();
 	Warrior(string name, float maxHealth);
 	void setWeapon(Weapon weapon);
 	void setArmor(Armor armor);

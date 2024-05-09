@@ -2,6 +2,6 @@
 enum WeaponType {
 	Grips,
 	Sword,
-	Lancer,
-	asd
+	Lance,
+	Bow
 };

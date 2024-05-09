@@ -7,9 +7,9 @@ int main()
 {
     cout << "Hello World!\n";
 
-    WarriorCreator creator;
+    WarriorCreator creator = WarriorCreator();
 
-    creator.Start();
+    creator.start();
 
     cin.get();
 }

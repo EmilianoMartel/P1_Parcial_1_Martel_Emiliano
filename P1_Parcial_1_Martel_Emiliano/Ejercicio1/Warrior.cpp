@@ -1,5 +1,11 @@
 #include "Warrior.h"
 
+Warrior::Warrior() {
+	name = "None";
+	maxHealth = 0;
+	currentHealth = 0;
+}
+
 Warrior::Warrior(string name, float maxHealth)
 {
 	this->name = name;
