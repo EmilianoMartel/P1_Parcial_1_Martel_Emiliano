@@ -1,8 +1,9 @@
 # Prerequisites
 *.d
 
-/[x64]/
-/[x32]/
+# Debug x64
+P1_Parcial_1_Martel_Emiliano/x64/
+P1_Parcial_1_Martel_Emiliano/Ejercicio1/x64/
 
 # Compiled Object files
 *.slo
