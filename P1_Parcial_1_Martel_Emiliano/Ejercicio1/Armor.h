@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "ArmorType.h"
 
 using namespace std;
@@ -16,4 +17,5 @@ public:
 	float getDamageReductionPercent(float damage);
 	float getCritRateReduction();
 	string getName();
+	void printData();
 };

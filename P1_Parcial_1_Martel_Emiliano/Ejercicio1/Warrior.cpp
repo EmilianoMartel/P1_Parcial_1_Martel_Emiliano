@@ -38,3 +38,7 @@ float Warrior::attack(Warrior warrior, AttackType attackType, bool isCrit)
 {
 	return weapon.getDamage(attackType,warrior.armor.getCritRateReduction(), isCrit);
 }
+
+void Warrior::getParameters() {
+	cout << getName() << "-weapon: " << weapon.getName() << "-armor: " << armor.getName() << endl;
+}

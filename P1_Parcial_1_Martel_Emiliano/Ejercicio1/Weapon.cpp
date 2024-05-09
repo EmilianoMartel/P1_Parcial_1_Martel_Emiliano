@@ -34,3 +34,10 @@ float Weapon::getDamage(AttackType attackType, float critRateReduction, bool& is
 string Weapon::getName(){
 	return name;
 }
+
+void Weapon::printData() {
+	cout << "Name: " << name << endl;
+	cout << "Damage -" << attack << endl;
+	cout << "Crit.Rate - " << critRate << endl;
+	cout << "Critical Damage -" << critDamage << endl;
+}

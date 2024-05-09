@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "WeaponType.h"
 #include "AttackType.h"
 
@@ -18,4 +19,5 @@ public:
 	Weapon(string name, WeaponType weaponType, float attack,float critRate,float critDamage);
 	float getDamage(AttackType attackType, float critRateReduction,bool& isCrit);
 	string getName();
+	void printData();
 };

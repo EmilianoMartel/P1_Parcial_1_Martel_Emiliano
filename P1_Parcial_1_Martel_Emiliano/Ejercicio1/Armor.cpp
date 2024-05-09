@@ -45,3 +45,9 @@ float Armor::getCritRateReduction()
 		break;
 	}
 }
+
+void Armor::printData() {
+	cout << "Name: " << name << endl;
+	cout << "Defense -" << defense << endl;
+	cout << "Weight - " << weight << endl;
+}

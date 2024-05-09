@@ -19,6 +19,7 @@ void WarriorCreator::start() {
 void WarriorCreator::startWarriorsArray(int arraySize) {
 	for (int i = 0; i < arraySize; ++i) {
 		warriors.push_back(createWarrior());
+		system("cls");
 	}
 }
 
@@ -35,7 +36,7 @@ Warrior WarriorCreator::createWarrior() {
 
 	createNew = yesOrNoLoop("Do you want the warrior to have a weapon? Y/N");
 	if (createNew) {
-		warrior.setWeapon(createWeapon());
+		warrior.setWeapon(setWarriorWeapon());
 	}
 
 	createNew = yesOrNoLoop("Do you want the warrior to have a armor? Y/N");
@@ -46,7 +47,7 @@ Warrior WarriorCreator::createWarrior() {
 	return warrior;
 }
 
-Weapon WarriorCreator::createWeapon() {
+Weapon WarriorCreator::setWarriorWeapon() {
 	bool useCreatedWeapon = false;
 	int input = 0;
 	
@@ -60,7 +61,8 @@ Weapon WarriorCreator::createWeapon() {
 		if (useCreatedWeapon) {
 			for (size_t i = 0; i < weapons.size(); i++)
 			{
-				cout << i + 1 << " - " << weapons[i].getName() << endl;
+				cout << i + 1 << endl;
+				weapons[i].printData();
 			}
 			do
 			{
@@ -69,8 +71,8 @@ Weapon WarriorCreator::createWeapon() {
 			return weapons[input - 1];
 		}
 		else {
-			weapons[weaponSize - 1] = newWeapon();
-			return weapons[weaponSize - 1];
+			weapons.push_back(newWeapon());
+			return weapons[weapons.size() - 1];
 		}
 	}
 }
@@ -106,7 +108,7 @@ Armor WarriorCreator::createArmor() {
 		if (useCreatedArmor) {
 			for (size_t i = 0; i < weapons.size(); i++)
 			{
-				cout << i + 1 << " - " << armors[i].getName() << endl;
+				armors[i].printData();
 			}
 			do
 			{
@@ -231,7 +233,7 @@ ArmorType WarriorCreator::armorTypeSelector() {
 	do
 	{
 		input = intInputLoop("Insert a number: ");
-	} while (input > 0 && input < 5);
+	} while (input < 1 || input > 3);
 
 	switch (input)
 	{
@@ -248,4 +250,8 @@ ArmorType WarriorCreator::armorTypeSelector() {
 		return Clothes;
 		break;
 	}
+}
+
+vector<Warrior> WarriorCreator::getWarriors() {
+	return warriors;
 }

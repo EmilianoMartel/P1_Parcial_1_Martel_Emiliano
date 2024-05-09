@@ -20,7 +20,7 @@ private:
 
 	void startWarriorsArray(int arraySize);
 	Warrior createWarrior();
-	Weapon createWeapon();
+	Weapon setWarriorWeapon();
 	Weapon newWeapon();
 	Armor createArmor();
 	Armor newArmor();
@@ -33,4 +33,5 @@ private:
 public:
 	WarriorCreator();
 	void start();
+	vector<Warrior> getWarriors();
 };
