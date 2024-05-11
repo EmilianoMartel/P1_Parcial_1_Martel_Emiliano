@@ -19,6 +19,7 @@ void WarriorCreator::start() {
 void WarriorCreator::startWarriorsArray(int arraySize) {
 	for (int i = 0; i < arraySize; ++i) {
 		warriors.push_back(createWarrior());
+		warriors[i].setWarriorID(i);
 		system("cls");
 	}
 }
@@ -26,12 +27,12 @@ void WarriorCreator::startWarriorsArray(int arraySize) {
 Warrior WarriorCreator::createWarrior() {
 	string input;
 	bool createNew = false;
-	int life = 0;
+	float life = 0;
 	cout << "Please insert the warrior name: " << endl;
 	getline(cin, input);
 	string name = input;
 
-	life = intInputLoop("How many life points does it have ?");
+	life = floatInputLoop("How many life points does it have ?");
 	Warrior warrior = Warrior(name, life);
 
 	createNew = yesOrNoLoop("Do you want the warrior to have a weapon? Y/N");
@@ -80,18 +81,18 @@ Weapon WarriorCreator::setWarriorWeapon() {
 Weapon WarriorCreator::newWeapon() {
 	string input;
 	WeaponType type;
-	int attack;
-	int critRate;
-	int critDamage;
+	float attack;
+	float critRate;
+	float critDamage;
 	cout << "Please insert the weapon name: " << endl;
 	getline(cin, input);
 	string name = input;
 
 	type = weaponTypeSelector();
 
-	attack = intInputLoop("How many attack point does it have?");
-	critRate = intInputLoop("How much critical rate damage does it have?");
-	critDamage = intInputLoop("How much critical damage points does it have?");
+	attack = floatInputLoop("How many attack point does it have?");
+	critRate = floatInputLoop("How much critical rate damage does it have?");
+	critDamage = floatInputLoop("How much critical damage points does it have?");
 
 	return Weapon(name, type, attack, critRate, critDamage);
 }
@@ -126,8 +127,8 @@ Armor WarriorCreator::createArmor() {
 Armor WarriorCreator::newArmor() {
 	string input;
 	ArmorType type;
-	int defense;
-	int weight;
+	float defense;
+	float weight;
 
 	cout << "Please insert the armor name: " << endl;
 	getline(cin, input);
@@ -135,61 +136,10 @@ Armor WarriorCreator::newArmor() {
 
 	type = armorTypeSelector();
 
-	defense = intInputLoop("How many defense point does it have?");
-	weight = intInputLoop("How much does it weigh?");
+	defense = floatInputLoop("How many defense point does it have?");
+	weight = floatInputLoop("How much does it weigh?");
 
 	return Armor(name, type, defense, weight);
-}
-
-bool WarriorCreator::intCheacker(string input) {
-	for (char c : input) {
-		if (!isdigit(c)) {
-			return false;
-		}
-	}
-	return true;
-}
-
-int WarriorCreator::intInputLoop(string question) {
-	string input;
-	bool inputValid = false;
-	do
-	{
-		cout << question << endl;
-		getline(cin, input);
-
-		inputValid = intCheacker(input);
-
-		if (inputValid) {
-			return stoi(input);
-		}
-		else {
-			cout << "Invalid input, try again." << endl;
-		}
-	} while (!inputValid);
-	return 0;
-}
-
-bool WarriorCreator::yesOrNoLoop(string question) {
-	string input;
-	bool inputValid = false;
-	do
-	{
-		cout << question << endl;
-		getline(cin, input);
-
-		if (input == "Y" || input == "y" || input == "N" || input == "n") {
-			inputValid = true;
-		}
-		else {
-			cout << "Invalid input. Try again." << endl;
-		}
-	} while (!inputValid);
-
-	if (input == "Y" || input == "y") {
-		return true;
-	}
-	return false;
 }
 
 WeaponType WarriorCreator::weaponTypeSelector() {

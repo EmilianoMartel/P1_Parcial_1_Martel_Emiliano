@@ -12,6 +12,8 @@ private:
 	Armor armor = Armor();
 	float maxHealth;
 	float currentHealth;
+	int warriorID;
+
 public:
 	Warrior();
 	Warrior(string name, float maxHealth);
@@ -20,5 +22,8 @@ public:
 	string getName();
 	void getParameters();
 	float reciveDamage(float damage);
-	float attack(Warrior warrior, AttackType attackType, bool isCrit);
+	float attack(Warrior warrior, AttackType attackType, bool* isCrit);
+	void setWarriorID(int index);
+	int getWarriorID();
+	float getLife();
 };

@@ -30,15 +30,30 @@ string Warrior::getName()
 
 float Warrior::reciveDamage(float damage) 
 {
+	//POR ACA HAY QUE ARREGLAR
 	currentHealth -= damage;
 	return currentHealth;
 }
 
-float Warrior::attack(Warrior warrior, AttackType attackType, bool isCrit)
+float Warrior::attack(Warrior warrior, AttackType attackType, bool* isCrit)
 {
-	return weapon.getDamage(attackType,warrior.armor.getCritRateReduction(), isCrit);
+	float damage = weapon.getDamage(attackType, warrior.armor.getCritRateReduction(), *isCrit);
+	warrior.reciveDamage(damage);
+	return damage;
 }
 
 void Warrior::getParameters() {
 	cout << getName() << "-weapon: " << weapon.getName() << "-armor: " << armor.getName() << endl;
+}
+
+void Warrior::setWarriorID(int index) {
+	warriorID = index;
+}
+
+int Warrior::getWarriorID() {
+	return warriorID;
+}
+
+float Warrior::getLife() {
+	return currentHealth;
 }

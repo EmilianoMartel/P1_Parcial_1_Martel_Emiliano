@@ -24,9 +24,6 @@ private:
 	Weapon newWeapon();
 	Armor createArmor();
 	Armor newArmor();
-	bool intCheacker(string input);
-	int intInputLoop(string question);
-	bool yesOrNoLoop(string question);
 	WeaponType weaponTypeSelector();
 	ArmorType armorTypeSelector();
 

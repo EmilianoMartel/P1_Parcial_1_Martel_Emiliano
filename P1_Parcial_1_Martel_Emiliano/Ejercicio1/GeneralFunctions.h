@@ -1,12 +1,16 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <cctype>
+#include <iostream>
+#include <sstream>
+
 using namespace std;
 
-class GeneralFun {
-public:
-	bool IntCheacker(string input) {};
+bool intCheacker(string input);
 
-	int IntInputLoop(string question) {};
-};
+bool floatCheacker(string input);
+
+int intInputLoop(string question);
+
+float floatInputLoop(string question);
+
+bool yesOrNoLoop(string question);
