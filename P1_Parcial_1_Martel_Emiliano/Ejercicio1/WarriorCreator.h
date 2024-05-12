@@ -18,17 +18,20 @@ private:
 	vector<Weapon>  weapons;
 	vector<Armor> armors;
 
-	void startWarriorsArray(int arraySize);
-	Warrior createWarrior();
+	void startWarriorsArray(int arraySize, bool isStandard);
+	Warrior createWarrior(bool isStandard);
 	Weapon setWarriorWeapon();
 	Weapon newWeapon();
 	Armor createArmor();
 	Armor newArmor();
+	void createStandarWeapons();
+	void createStandarArmors();
 	WeaponType weaponTypeSelector();
 	ArmorType armorTypeSelector();
 
 public:
 	WarriorCreator();
-	void start();
+	void custom();
+	void standard();
 	vector<Warrior> getWarriors();
 };

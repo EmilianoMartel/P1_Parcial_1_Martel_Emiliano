@@ -23,12 +23,27 @@ float Weapon::getDamage(AttackType attackType, float critRateReduction, bool& is
 
 	isCrit = false;
 
+	switch (attackType)
+	{
+	case Fast:
+
+		break;
+	case Normal:
+
+		break;
+	case Charged:
+
+		break;
+	default:
+		break;
+	}
+
 	if (chances <= critRate - critRateReduction) {
-		attack += critDamage;
+		damage += critDamage;
 		isCrit = true;
 	}
 
-	return attack;
+	return damage;
 }
 
 string Weapon::getName(){

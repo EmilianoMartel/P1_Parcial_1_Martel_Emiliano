@@ -1,17 +1,104 @@
 #include "Game.h"
 
 Game::Game() {
-	index = 0;
+	creator = WarriorCreator();
+	index = -1;
 	deadWarriors = 0;
 }
 
 void Game::start() {
+	menu();
+}
+
+void Game::menu() {
+	int input;
+	bool exit = false;
 	do
 	{
-		printTurn(warriors[index]);
+		system("cls");
+		cout << "Warriors Fight." << endl;
+		cout << "1 - Play" << endl;
+		cout << "2 - Instructions" << endl;
+		cout << "3 - Exit" << endl;
+		input = intInputLoop("Select a option: ");
+		switch (input)
+		{
+		case 1:
+			typeGameSelection();
+			break;
+		case 2:
+			break;
+		case 3:
+			exit = yesOrNoLoop("Are you sure? Y/N");
+			if (exit)
+				ExitProcess(0);
+			
+			input = 0;
+			break;
+		default:
+			cout << "Wrong input." << endl;
+			miliSleep(500);
+			break;
+		}
+	} while (input != 3);
+}
 
+void Game::typeGameSelection() {
+	int input;
+	do
+	{
+		system("cls");
+		cout << "Warriors Fight." << endl;
+		cout << "1 - Standar Game" << endl;
+		cout << "2 - Custom Game" << endl;
+		cout << "3 - Back to menu" << endl;
+		input = intInputLoop("Select a option: ");
+		switch (input)
+		{
+		case 1:
+			standarGame();
+			break;
+		case 2:
+			creator.custom();
+			break;
+		case 3:
+			break;
+		default:
+			cout << "Wrong input." << endl;
+			miliSleep(500);
+			break;
+		}
+	} while (input != 3);
+
+	menu();
+
+}
+
+void Game::standarGame() {
+	creator.standard();
+	setWarriors(creator.getWarriors());
+	gameLoop();
+}
+
+void Game::customGame() {
+	creator.custom();
+	setWarriors(creator.getWarriors());
+	gameLoop();
+}
+
+void Game::gameLoop() {
+	do
+	{
 		index++;
-	} while (deadWarriors <= warriors.size());
+		if (index >= warriors.size() || index < 0)
+			index = 0;
+
+		if (warriors[index].isAlive())
+			printTurn(warriors[index]);
+
+	} while (deadWarriors < warriors.size() - 1);
+
+	gameOverLogic();
 }
 
 void Game::setWarriors(vector<Warrior> warriors) {
@@ -19,7 +106,7 @@ void Game::setWarriors(vector<Warrior> warriors) {
 }
 
 void Game::printTurn(Warrior warrior) {
-	Warrior attackedWarrior;
+	Warrior* attackedWarrior;
 	AttackType attackType;
 	bool isCritic = false;
 
@@ -28,40 +115,41 @@ void Game::printTurn(Warrior warrior) {
 	attackedWarrior = setSelectedWarriors(warrior);
 	attackType = attackTypeSelector();
 
-	cout << warrior.getName() << " attack " << attackedWarrior.getName() << endl;
-
-	warrior.attack(attackedWarrior,attackType,&isCritic);
+	cout << warrior.getName() << " attack " << attackedWarrior->getName() << endl;
+	cout << attackedWarrior->getName() << " recive " << warrior.attack(attackedWarrior, attackType, &isCritic) << " damage points." << endl;
 
 	if (isCritic) {
 		cout << "IS CRITIC." << endl;
 	}
+
+	if (!attackedWarrior->isAlive())
+		deadWarriors++;
 }
 
-Warrior Game::setSelectedWarriors(Warrior warrior) {
+Warrior* Game::setSelectedWarriors(Warrior warrior) {
 	canSelectedWarriors.clear();
-	int num = 0;
+	int selection = 0;
 	int indexList = 0;
+	vector<int> ids;
 
 	for (size_t i = 0; i < warriors.size(); i++)
 	{
-		if (warriors[i].getWarriorID() == warrior.getWarriorID()) {
+		if (warriors[i].getWarriorID() == warrior.getWarriorID() || !warriors[i].isAlive())
 			continue;
-		}
 
 		indexList++;
 		cout << indexList << " - " << warriors[i].getName() << " life: " << warriors[i].getLife() << endl;
+		ids.push_back(warriors[i].getWarriorID());
 	}
 
 	do
 	{
-		num = intInputLoop("How do you want to attack? (Select number)");
-	} while (num < 1 || num > warriors.size() - 1);
+		selection = intInputLoop("How do you want to attack? (Select number)");
+	} while (selection < 1 || selection > warriors.size() - 1);
 
-	if (num < warrior.getWarriorID()) {
-		num--;
-	}
+	selection = ids[selection - 1];
 
-	return warriors[num];
+	return &warriors[selection];
 }
 
 AttackType Game::attackTypeSelector() {
@@ -90,4 +178,9 @@ AttackType Game::attackTypeSelector() {
 		return Fast;
 		break;
 	}
+}
+
+void Game::gameOverLogic() {
+	cout << warriors[index].getName() << " WINS!!!" << endl;
+	cin.get();
 }

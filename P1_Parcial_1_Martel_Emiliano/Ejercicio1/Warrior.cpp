@@ -30,15 +30,17 @@ string Warrior::getName()
 
 float Warrior::reciveDamage(float damage) 
 {
-	//POR ACA HAY QUE ARREGLAR
-	currentHealth -= damage;
+	float realDamage = damage - (damage * (armor.getDamageReductionPercent(damage) / 100));
+
+	currentHealth -= realDamage;
+
 	return currentHealth;
 }
 
-float Warrior::attack(Warrior warrior, AttackType attackType, bool* isCrit)
+float Warrior::attack(Warrior* warrior, AttackType attackType, bool* isCrit)
 {
-	float damage = weapon.getDamage(attackType, warrior.armor.getCritRateReduction(), *isCrit);
-	warrior.reciveDamage(damage);
+	float damage = weapon.getDamage(attackType, armor.getCritRateReduction(), *isCrit);
+	warrior->reciveDamage(damage);
 	return damage;
 }
 
@@ -56,4 +58,8 @@ int Warrior::getWarriorID() {
 
 float Warrior::getLife() {
 	return currentHealth;
+}
+
+bool Warrior::isAlive() {
+	return currentHealth > 0;
 }

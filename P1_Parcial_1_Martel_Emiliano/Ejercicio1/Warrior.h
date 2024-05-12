@@ -22,7 +22,8 @@ public:
 	string getName();
 	void getParameters();
 	float reciveDamage(float damage);
-	float attack(Warrior warrior, AttackType attackType, bool* isCrit);
+	float attack(Warrior* warrior, AttackType attackType, bool* isCrit);
+	bool isAlive();
 	void setWarriorID(int index);
 	int getWarriorID();
 	float getLife();

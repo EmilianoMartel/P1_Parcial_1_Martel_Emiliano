@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Armor.cpp" />
+    <ClCompile Include="AwesomeLibrary.cpp" />
     <ClCompile Include="Ejercicio1.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeneralFunctions.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Armor.h" />
     <ClInclude Include="ArmorType.h" />
     <ClInclude Include="AttackType.h" />
+    <ClInclude Include="AwesomeLibrary.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeneralFunctions.h" />
     <ClInclude Include="Warrior.h" />

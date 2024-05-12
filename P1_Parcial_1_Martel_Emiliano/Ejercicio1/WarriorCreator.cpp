@@ -6,25 +6,29 @@ WarriorCreator::WarriorCreator() {
 	warriorsSize = 0;
 }
 
-void WarriorCreator::start() {
+void WarriorCreator::custom() {
 	string input;
 	bool inputValue = false;
 	int size = 0;
 
 	size = intInputLoop("How many warriors do you want to create?");
 
-	startWarriorsArray(size);
+	startWarriorsArray(size, false);
 }
 
-void WarriorCreator::startWarriorsArray(int arraySize) {
+void WarriorCreator::standard() {
+	startWarriorsArray(2, true);
+}
+
+void WarriorCreator::startWarriorsArray(int arraySize, bool isStandard) {
 	for (int i = 0; i < arraySize; ++i) {
-		warriors.push_back(createWarrior());
+		warriors.push_back(createWarrior(isStandard));
 		warriors[i].setWarriorID(i);
 		system("cls");
 	}
 }
 
-Warrior WarriorCreator::createWarrior() {
+Warrior WarriorCreator::createWarrior(bool isStandard) {
 	string input;
 	bool createNew = false;
 	float life = 0;
@@ -34,6 +38,11 @@ Warrior WarriorCreator::createWarrior() {
 
 	life = floatInputLoop("How many life points does it have ?");
 	Warrior warrior = Warrior(name, life);
+
+	if (isStandard) {
+		createStandarArmors();
+		createStandarWeapons();
+	}
 
 	createNew = yesOrNoLoop("Do you want the warrior to have a weapon? Y/N");
 	if (createNew) {
@@ -48,10 +57,21 @@ Warrior WarriorCreator::createWarrior() {
 	return warrior;
 }
 
+void WarriorCreator::createStandarWeapons(){
+	weapons.push_back(Weapon("Standard Sword", Sword,15.f,30.5f,20.f));
+	weapons.push_back(Weapon("Standard Lance", Lance, 20.f, 20.5f, 50.f));
+	weapons.push_back(Weapon("Standard Bow", Bow, 20.6f, 40.8f, 10.f));
+}
+
+void WarriorCreator::createStandarArmors(){
+	armors.push_back(Armor("Standard Leather", Leather,20.f,5.f));
+	armors.push_back(Armor("Standard Heavy", HeavyArmor, 20.f, 20.f));
+}
+
 Weapon WarriorCreator::setWarriorWeapon() {
 	bool useCreatedWeapon = false;
 	int input = 0;
-	
+
 	if (weapons.size() <= 0) {
 		weapons.push_back(newWeapon());
 
@@ -107,8 +127,9 @@ Armor WarriorCreator::createArmor() {
 	else {
 		useCreatedArmor = yesOrNoLoop("Do you want to use an already created armor? Y/N");
 		if (useCreatedArmor) {
-			for (size_t i = 0; i < weapons.size(); i++)
+			for (size_t i = 0; i < armors.size(); i++)
 			{
+				cout << i + 1 << endl;
 				armors[i].printData();
 			}
 			do
@@ -137,7 +158,7 @@ Armor WarriorCreator::newArmor() {
 	type = armorTypeSelector();
 
 	defense = floatInputLoop("How many defense point does it have?");
-	weight = floatInputLoop("How much does it weigh?");
+	weight = floatInputLoop("How much does it weigh? If you have too much weigh your critical chances will be reduced.\nRecommend number between 0 to 30.");
 
 	return Armor(name, type, defense, weight);
 }
@@ -177,9 +198,9 @@ WeaponType WarriorCreator::weaponTypeSelector() {
 ArmorType WarriorCreator::armorTypeSelector() {
 	int input = 0;
 	cout << "What armor type is it?" << endl;
-	cout << "1 - Clothes" << endl;
-	cout << "2 - Leather" << endl;
-	cout << "3 - HeavyArmor" << endl;
+	cout << "1 - Clothes (standard defense)" << endl;
+	cout << "2 - Leather (increment 5 points defense, reduce 10 poins crit rate)" << endl;
+	cout << "3 - HeavyArmor (increment 10 points defense, reduce 15 poins crit rate)" << endl;
 	do
 	{
 		input = intInputLoop("Insert a number: ");
