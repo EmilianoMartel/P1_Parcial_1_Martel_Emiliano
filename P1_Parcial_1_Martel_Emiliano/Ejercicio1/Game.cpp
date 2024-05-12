@@ -16,9 +16,8 @@ void Game::menu() {
 	bool exit = false;
 	do
 	{
-		int indexer = draw();
+		int indexer;
 		string lines = "1 - Play\n2 - Instructions\n3 - Exit";
-		indexer++;
 		printData(lines,41,&indexer);
 		goToCoordinates(41, indexer);
 		input = intInputLoop("Select a option: ",41,indexer);
@@ -31,7 +30,7 @@ void Game::menu() {
 			instructions();
 			break;
 		case 3:
-			exit = yesOrNoLoop("Are you sure? Y/N");
+			exit = yesOrNoLoop("Are you sure? Y/N",40,1);
 			if (exit)
 				ExitProcess(0);
 			
@@ -47,12 +46,22 @@ void Game::menu() {
 
 void Game::instructions() {
 	system("cls");
-	cout << "Is is a turn-based combat." << endl;
-	cout << "In your turn you can select who to attack." << endl;
-	cout << "Then you can choose which type of attack to make." << endl;
-	cout << "Fast - Increases your critical chance 10% but you lose 5% of critical damage." << endl;
-	cout << "Normal - Increase your basic damage 5% but you lose your critical chance in 10%." << endl;
-	cout << "Charged - Increse your basic and critical damage in 10% but you lose your critical chance in 15%." << endl;
+	string lines = R"(Is is a turn-based combat.
+In your turn you can select who to attack.
+Then you can choose which type of attack to make.
+          - Fast -
+Increases your critical chance 10%
+but you lose 5% of critical damage.
+          - Normal - 
+Increase your basic damage 5%
+but you lose your critical chance in 10%.
+          - Charged - 
+Increse your basic and critical damage in 10%
+but you lose your critical chance in 15%.)";
+	int indexer;
+	printData(lines, 24, &indexer);
+	indexer++;
+	goToCoordinates(24, indexer);
 	cout << "Press any key to continue..." << endl;
 	_getch();
 	system("cls");
@@ -63,18 +72,21 @@ void Game::typeGameSelection() {
 	do
 	{
 		system("cls");
-		cout << "Warriors Fight." << endl;
-		cout << "1 - Standar Game" << endl;
-		cout << "2 - Custom Game" << endl;
-		cout << "3 - Back to menu" << endl;
-		input = intInputLoop("Select a option: ",41, 0);
+		string lines = R"(1 - Standard Game
+2 - Custom Game
+3 - Back to menu)";
+		int indexer = draw();
+		indexer++;
+		printData(lines, 40, &indexer);
+		indexer++;
+		input = intInputLoop("Select a option: ",41, indexer);
 		switch (input)
 		{
 		case 1:
 			standarGame();
 			break;
 		case 2:
-			creator.custom();
+			customGame();
 			break;
 		case 3:
 			break;
@@ -125,18 +137,26 @@ void Game::printTurn(Warrior warrior) {
 	AttackType attackType;
 	bool isCritic = false;
 
-	cout << "It´s " << warrior.getName() << " turn." << endl;
+	system("cls");
+	string lines = R"(It's )" + warrior.getName() + R"( turn.)";
+	int indexer = draw();
+	indexer++;
+	printData(lines, 40, &indexer);
+	indexer++;
 
 	attackedWarrior = setSelectedWarriors(warrior);
 	attackType = attackTypeSelector();
-
-	cout << warrior.getName() << " attack " << attackedWarrior->getName() << endl;
-	cout << attackedWarrior->getName() << " recive " << warrior.attack(attackedWarrior, attackType, &isCritic) << " damage points." << endl;
+	
+	lines = warrior.getName() + " attack " + attackedWarrior->getName() + "\n" + attackedWarrior->getName() + " recive " + to_string(warrior.attack(attackedWarrior, attackType, &isCritic)) + " damage points.";
 
 	if (isCritic) {
-		cout << "IS CRITIC." << endl;
+		lines +=  "\nIS CRITIC.";
 	}
-
+	printData(lines, 40, &indexer);
+	indexer++;
+	goToCoordinates(40, indexer);
+	cout << "Press any key to coninue...";
+	_getch();
 	if (!attackedWarrior->isAlive())
 		deadWarriors++;
 }
@@ -146,20 +166,24 @@ Warrior* Game::setSelectedWarriors(Warrior warrior) {
 	int selection = 0;
 	int indexList = 0;
 	vector<int> ids;
-
+	string lines = "";
 	for (size_t i = 0; i < warriors.size(); i++)
 	{
 		if (warriors[i].getWarriorID() == warrior.getWarriorID() || !warriors[i].isAlive())
 			continue;
 
 		indexList++;
-		cout << indexList << " - " << warriors[i].getName() << " life: " << warriors[i].getLife() << endl;
+		lines += to_string(indexList) + " - " + warriors[i].getName() + " life: " + to_string(warriors[i].getLife()) + "\n";
 		ids.push_back(warriors[i].getWarriorID());
 	}
-
+	system("cls");
+	int indexer = draw();
+	indexer++;
+	printData(lines, 40, &indexer);
+	indexer++;
 	do
 	{
-		selection = intInputLoop("How do you want to attack? (Select number)", 41, 0);
+		selection = intInputLoop("Who do you want to attack? (Select number)", 40, indexer);
 	} while (selection < 1 || selection > warriors.size() - 1);
 
 	selection = ids[selection - 1];
@@ -169,13 +193,17 @@ Warrior* Game::setSelectedWarriors(Warrior warrior) {
 
 AttackType Game::attackTypeSelector() {
 	int input = 0;
-	cout << "What attack type do you want to do?" << endl;
-	cout << "1 - Fast" << endl;
-	cout << "2 - Normal" << endl;
-	cout << "3 - Charged" << endl;
+	system("cls");
+	string lines = R"(What attack type do you want to do?
+1 - Fast
+2 - Normal
+3 - Charged)";
+	int indexer = draw();
+	indexer++;
+	printData(lines, 40, &indexer);
 	do
 	{
-		input = intInputLoop("Insert a number: ", 41, 0);
+		input = intInputLoop("Insert a number: ", 40, indexer);
 	} while (input < 1 || input > 3);
 
 	switch (input)
@@ -196,6 +224,11 @@ AttackType Game::attackTypeSelector() {
 }
 
 void Game::gameOverLogic() {
+	int indexer;
+	string line = "";
+	printData(line,40,&indexer);
+	indexer++;
+	goToCoordinates(40,indexer);
 	cout << warriors[index].getName() << " WINS!!!" << endl;
 	cin.get();
 }

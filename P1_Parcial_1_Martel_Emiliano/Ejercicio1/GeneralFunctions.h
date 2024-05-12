@@ -22,6 +22,6 @@ int intInputLoop(string question, int x, int y);
 
 float floatInputLoop(string question, int x, int y);
 
-bool yesOrNoLoop(string question);
+bool yesOrNoLoop(string question, int x, int y);
 
 void printData(string& lines, int x, int* startY);

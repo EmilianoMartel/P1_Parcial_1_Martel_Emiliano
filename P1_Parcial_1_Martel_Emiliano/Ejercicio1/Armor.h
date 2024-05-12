@@ -17,5 +17,5 @@ public:
 	float getDamageReductionPercent(float damage);
 	float getCritRateReduction();
 	string getName();
-	void printData();
+	string printData();
 };

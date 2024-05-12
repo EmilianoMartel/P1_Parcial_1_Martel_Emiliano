@@ -55,9 +55,10 @@ string Weapon::getName(){
 	return name;
 }
 
-void Weapon::printData() {
-	cout << "Name: " << name << endl;
-	cout << "Damage -" << attack << endl;
-	cout << "Crit.Rate - " << critRate << endl;
-	cout << "Critical Damage -" << critDamage << endl;
+string Weapon::printData() {
+	string lines = "Name " + name + "\n";
+	lines += "Damage -" + to_string(attack) + " ";
+	lines += "Crit.Rate - " + to_string(critRate) + " ";
+	lines += "Critical Damage -" + to_string(critDamage) + "\n";
+	return lines;
 }

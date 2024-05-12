@@ -10,8 +10,8 @@ void WarriorCreator::custom() {
 	string input;
 	bool inputValue = false;
 	int size = 0;
-
-	size = intInputLoop("How many warriors do you want to create?", 41, 0);
+	string lines = "How many warriors do you want to create?";
+	printData(lines, 41, 0);
 
 	startWarriorsArray(size, false);
 }
@@ -32,24 +32,34 @@ Warrior WarriorCreator::createWarrior(bool isStandard) {
 	string input;
 	bool createNew = false;
 	float life = 0;
-	cout << "Please insert the warrior name: " << endl;
+	string line = "Please insert the warrior name: ";
+	int indexer;
+	printData(line, 40, &indexer);
+	indexer++;
+	goToCoordinates(40, indexer);
 	getline(cin, input);
 	string name = input;
-
-	life = floatInputLoop("How many life points does it have ?", 41, 0);
+	line = "";
+	printData(line, 40, &indexer);
+	indexer++;
+	life = floatInputLoop("How many life points does it have ?", 41, indexer);
 	Warrior warrior = Warrior(name, life);
 
 	if (isStandard) {
 		createStandarArmors();
 		createStandarWeapons();
 	}
-
-	createNew = yesOrNoLoop("Do you want the warrior to have a weapon? Y/N");
+	line = "";
+	printData(line, 40, &indexer);
+	indexer++;
+	createNew = yesOrNoLoop("Do you want the warrior to have a weapon? Y/N", 40, indexer);
 	if (createNew) {
 		warrior.setWeapon(setWarriorWeapon());
 	}
-
-	createNew = yesOrNoLoop("Do you want the warrior to have a armor? Y/N");
+	line = "";
+	printData(line, 40, &indexer);
+	indexer++;
+	createNew = yesOrNoLoop("Do you want the warrior to have a armor? Y/N", 40, indexer);
 	if (createNew) {
 		warrior.setArmor(createArmor());
 	}
@@ -57,14 +67,14 @@ Warrior WarriorCreator::createWarrior(bool isStandard) {
 	return warrior;
 }
 
-void WarriorCreator::createStandarWeapons(){
-	weapons.push_back(Weapon("Standard Sword", Sword,15.f,30.5f,20.f));
+void WarriorCreator::createStandarWeapons() {
+	weapons.push_back(Weapon("Standard Sword", Sword, 15.f, 30.5f, 20.f));
 	weapons.push_back(Weapon("Standard Lance", Lance, 20.f, 20.5f, 50.f));
 	weapons.push_back(Weapon("Standard Bow", Bow, 20.6f, 40.8f, 10.f));
 }
 
-void WarriorCreator::createStandarArmors(){
-	armors.push_back(Armor("Standard Leather", Leather,20.f,5.f));
+void WarriorCreator::createStandarArmors() {
+	armors.push_back(Armor("Standard Leather", Leather, 20.f, 5.f));
 	armors.push_back(Armor("Standard Heavy", HeavyArmor, 20.f, 20.f));
 }
 
@@ -78,16 +88,21 @@ Weapon WarriorCreator::setWarriorWeapon() {
 		return weapons[0];
 	}
 	else {
-		useCreatedWeapon = yesOrNoLoop("Do you want to use an already created weapon? Y/N");
+		int indexer;
+		string lines = "";
+		printData(lines, 40, &indexer);
+		indexer++;
+		useCreatedWeapon = yesOrNoLoop("Do you want to use an already created weapon? Y/N", 40, indexer);
 		if (useCreatedWeapon) {
 			for (size_t i = 0; i < weapons.size(); i++)
 			{
-				cout << i + 1 << endl;
-				weapons[i].printData();
+				lines += to_string(i + 1) + " - " + weapons[i].printData();
 			}
 			do
 			{
-				input = intInputLoop("Insert a number: ", 41, 0);
+				printData(lines, 20, &indexer);
+				indexer++;
+				input = intInputLoop("Insert a number: ", 40, indexer);
 			} while (input < 1 || input > weapons.size());
 			return weapons[input - 1];
 		}
@@ -104,15 +119,23 @@ Weapon WarriorCreator::newWeapon() {
 	float attack;
 	float critRate;
 	float critDamage;
-	cout << "Please insert the weapon name: " << endl;
+	int indexer;
+	string lines = "Please insert the weapon name: ";
+	printData(lines, 40, &indexer);
+	indexer++;
+	goToCoordinates(40, indexer);
 	getline(cin, input);
 	string name = input;
 
 	type = weaponTypeSelector();
 
-	attack = floatInputLoop("How many attack point does it have?", 41, 0);
-	critRate = floatInputLoop("How much critical rate damage does it have?", 41, 0);
-	critDamage = floatInputLoop("How much critical damage points does it have?", 41, 0);
+	lines = "";
+	printData(lines, 40, &indexer);
+	attack = floatInputLoop("How many attack point does it have?", 41, indexer);
+	printData(lines, 40, &indexer);
+	critRate = floatInputLoop("How much critical rate damage does it have?", 41, indexer);
+	printData(lines, 40, &indexer);
+	critDamage = floatInputLoop("How much critical damage points does it have?", 41, indexer);
 
 	return Weapon(name, type, attack, critRate, critDamage);
 }
@@ -125,16 +148,21 @@ Armor WarriorCreator::createArmor() {
 		return armors[0];
 	}
 	else {
-		useCreatedArmor = yesOrNoLoop("Do you want to use an already created armor? Y/N");
+		string lines = "";
+		int indexer;
+		printData(lines, 40, &indexer);
+		indexer++;
+		useCreatedArmor = yesOrNoLoop("Do you want to use an already created armor? Y/N", 40, indexer);
 		if (useCreatedArmor) {
 			for (size_t i = 0; i < armors.size(); i++)
 			{
-				cout << i + 1 << endl;
-				armors[i].printData();
+				lines += to_string(i + 1) + " - " + armors[i].printData();
 			}
 			do
 			{
-				input = intInputLoop("Insert a number: ", 41, 0);
+				printData(lines, 20, &indexer);
+				indexer++;
+				input = intInputLoop("Insert a number: ", 40, indexer);
 			} while (input < 1 || input > armors.size());
 			return armors[input - 1];
 		}
@@ -150,29 +178,38 @@ Armor WarriorCreator::newArmor() {
 	ArmorType type;
 	float defense;
 	float weight;
-
-	cout << "Please insert the armor name: " << endl;
+	int indexer;
+	string lines = "Please insert the armor name: ";
+	printData(lines, 40, &indexer);
+	indexer++;
+	goToCoordinates(40, indexer);
 	getline(cin, input);
 	string name = input;
 
 	type = armorTypeSelector();
 
-	defense = floatInputLoop("How many defense point does it have?", 41, 0);
-	weight = floatInputLoop("How much does it weigh? If you have too much weigh your critical chances will be reduced.\nRecommend number between 0 to 30.", 41, 0);
+	lines = "";
+	printData(lines, 40, &indexer);
+	defense = floatInputLoop("How many defense point does it have?", 41, indexer);
+	printData(lines, 40, &indexer);
+	weight = floatInputLoop("How much does it weigh? If you have too much weigh your critical chances will be reduced.\nRecommend number between 0 to 30.", 41, indexer);
 
 	return Armor(name, type, defense, weight);
 }
 
 WeaponType WarriorCreator::weaponTypeSelector() {
 	int input = 0;
-	cout << "What weapon type is it?" << endl;
-	cout << "1 - Grips" << endl;
-	cout << "2 - Sword" << endl;
-	cout << "3 - Lance" << endl;
-	cout << "4 - Bow" << endl;
+	int indexer;
+	string lines = R"(What weapon type is it?
+1 - Grips
+2 - Sword
+3 - Lance
+4 - Bow)";
+	printData(lines, 40, &indexer);
+	indexer++;
 	do
 	{
-		input = intInputLoop("Insert a number: ", 41, 0);
+		input = intInputLoop("Insert a number: ", 41, indexer);
 	} while (input < 1 || input > 4);
 
 	switch (input)
@@ -197,13 +234,16 @@ WeaponType WarriorCreator::weaponTypeSelector() {
 
 ArmorType WarriorCreator::armorTypeSelector() {
 	int input = 0;
-	cout << "What armor type is it?" << endl;
-	cout << "1 - Clothes (standard defense)" << endl;
-	cout << "2 - Leather (increment 5 points defense, reduce 10 poins crit rate)" << endl;
-	cout << "3 - HeavyArmor (increment 10 points defense, reduce 15 poins crit rate)" << endl;
+	int indexer;
+	string lines = R"(What armor type is it?
+1 - Clothes (standard defense)
+2 - Leather (increment 5 points defense, reduce 10 poins crit rate)
+3 - HeavyArmor (increment 10 points defense, reduce 15 poins crit rate))";
+	printData(lines, 40, &indexer);
+	indexer++;
 	do
 	{
-		input = intInputLoop("Insert a number: ", 41, 0);
+		input = intInputLoop("Insert a number: ", 41, indexer);
 	} while (input < 1 || input > 3);
 
 	switch (input)

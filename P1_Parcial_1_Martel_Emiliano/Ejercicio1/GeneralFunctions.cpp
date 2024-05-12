@@ -51,6 +51,7 @@ bool floatCheacker(string input) {
 float floatInputLoop(string question, int x,int y) {
 	string input;
 	bool inputValid = false;
+	goToCoordinates(x, y);
 	do
 	{
 		cout << question << endl;
@@ -75,6 +76,7 @@ int intInputLoop(string question, int x, int y) {
 	bool inputValid = false;
 	do
 	{
+		goToCoordinates(x, y);
 		cout << question << endl;
 		goToCoordinates(x, y + 1);
 		getline(cin, input);
@@ -92,18 +94,21 @@ int intInputLoop(string question, int x, int y) {
 	return 0;
 }
 
-bool yesOrNoLoop(string question) {
+bool yesOrNoLoop(string question, int x, int y) {
 	string input;
 	bool inputValid = false;
+	goToCoordinates(x, y);
 	do
 	{
 		cout << question << endl;
+		goToCoordinates(x, y + 1);
 		getline(cin, input);
 
 		if (input == "Y" || input == "y" || input == "N" || input == "n") {
 			inputValid = true;
 		}
 		else {
+			goToCoordinates(x, y + 2);
 			cout << "Invalid input. Try again." << endl;
 		}
 	} while (!inputValid);
@@ -115,10 +120,12 @@ bool yesOrNoLoop(string question) {
 }
 
 void printData(string& lines, int x, int* startY) {
+	system("cls");
+	int y = *startY;
+	y = draw();
 	istringstream iss(lines);
 	string line;
-	int y = *startY;
-	while (getline(iss, line, '\n')) {
+	while (getline(iss, line)) {
 		goToCoordinates(x, y);
 		cout << line << endl;
 		y++;
