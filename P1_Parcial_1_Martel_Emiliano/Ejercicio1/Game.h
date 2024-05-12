@@ -1,6 +1,8 @@
 #pragma once
 #include "WarriorCreator.h"
 #include "AwesomeLibrary.h"
+#include <iostream>
+#include <conio.h>
 
 using namespace std;
 
@@ -12,8 +14,15 @@ private:
 	int index;
 	int deadWarriors;
 
+	int xInit = 1;
+	int yInit = 1;
+	int xFinal = 100;
+	int yFinal = 25;
+	char* titleArt;
+
 	void menu();
 	void gameLoop();
+	void instructions();
 	void typeGameSelection();
 	void standarGame();
 	void customGame();

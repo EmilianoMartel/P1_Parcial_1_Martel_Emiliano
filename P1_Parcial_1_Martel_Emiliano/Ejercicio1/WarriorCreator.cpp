@@ -11,7 +11,7 @@ void WarriorCreator::custom() {
 	bool inputValue = false;
 	int size = 0;
 
-	size = intInputLoop("How many warriors do you want to create?");
+	size = intInputLoop("How many warriors do you want to create?", 41, 0);
 
 	startWarriorsArray(size, false);
 }
@@ -36,7 +36,7 @@ Warrior WarriorCreator::createWarrior(bool isStandard) {
 	getline(cin, input);
 	string name = input;
 
-	life = floatInputLoop("How many life points does it have ?");
+	life = floatInputLoop("How many life points does it have ?", 41, 0);
 	Warrior warrior = Warrior(name, life);
 
 	if (isStandard) {
@@ -87,7 +87,7 @@ Weapon WarriorCreator::setWarriorWeapon() {
 			}
 			do
 			{
-				input = intInputLoop("Insert a number: ");
+				input = intInputLoop("Insert a number: ", 41, 0);
 			} while (input < 1 || input > weapons.size());
 			return weapons[input - 1];
 		}
@@ -110,9 +110,9 @@ Weapon WarriorCreator::newWeapon() {
 
 	type = weaponTypeSelector();
 
-	attack = floatInputLoop("How many attack point does it have?");
-	critRate = floatInputLoop("How much critical rate damage does it have?");
-	critDamage = floatInputLoop("How much critical damage points does it have?");
+	attack = floatInputLoop("How many attack point does it have?", 41, 0);
+	critRate = floatInputLoop("How much critical rate damage does it have?", 41, 0);
+	critDamage = floatInputLoop("How much critical damage points does it have?", 41, 0);
 
 	return Weapon(name, type, attack, critRate, critDamage);
 }
@@ -134,7 +134,7 @@ Armor WarriorCreator::createArmor() {
 			}
 			do
 			{
-				input = intInputLoop("Insert a number: ");
+				input = intInputLoop("Insert a number: ", 41, 0);
 			} while (input < 1 || input > armors.size());
 			return armors[input - 1];
 		}
@@ -157,8 +157,8 @@ Armor WarriorCreator::newArmor() {
 
 	type = armorTypeSelector();
 
-	defense = floatInputLoop("How many defense point does it have?");
-	weight = floatInputLoop("How much does it weigh? If you have too much weigh your critical chances will be reduced.\nRecommend number between 0 to 30.");
+	defense = floatInputLoop("How many defense point does it have?", 41, 0);
+	weight = floatInputLoop("How much does it weigh? If you have too much weigh your critical chances will be reduced.\nRecommend number between 0 to 30.", 41, 0);
 
 	return Armor(name, type, defense, weight);
 }
@@ -172,7 +172,7 @@ WeaponType WarriorCreator::weaponTypeSelector() {
 	cout << "4 - Bow" << endl;
 	do
 	{
-		input = intInputLoop("Insert a number: ");
+		input = intInputLoop("Insert a number: ", 41, 0);
 	} while (input < 1 || input > 4);
 
 	switch (input)
@@ -203,7 +203,7 @@ ArmorType WarriorCreator::armorTypeSelector() {
 	cout << "3 - HeavyArmor (increment 10 points defense, reduce 15 poins crit rate)" << endl;
 	do
 	{
-		input = intInputLoop("Insert a number: ");
+		input = intInputLoop("Insert a number: ", 41, 0);
 	} while (input < 1 || input > 3);
 
 	switch (input)

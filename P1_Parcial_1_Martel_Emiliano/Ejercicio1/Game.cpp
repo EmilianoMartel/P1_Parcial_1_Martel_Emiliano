@@ -7,6 +7,7 @@ Game::Game() {
 }
 
 void Game::start() {
+	
 	menu();
 }
 
@@ -15,18 +16,19 @@ void Game::menu() {
 	bool exit = false;
 	do
 	{
-		system("cls");
-		cout << "Warriors Fight." << endl;
-		cout << "1 - Play" << endl;
-		cout << "2 - Instructions" << endl;
-		cout << "3 - Exit" << endl;
-		input = intInputLoop("Select a option: ");
+		int indexer = draw();
+		string lines = "1 - Play\n2 - Instructions\n3 - Exit";
+		indexer++;
+		printData(lines,41,&indexer);
+		goToCoordinates(41, indexer);
+		input = intInputLoop("Select a option: ",41,indexer);
 		switch (input)
 		{
 		case 1:
 			typeGameSelection();
 			break;
 		case 2:
+			instructions();
 			break;
 		case 3:
 			exit = yesOrNoLoop("Are you sure? Y/N");
@@ -43,6 +45,19 @@ void Game::menu() {
 	} while (input != 3);
 }
 
+void Game::instructions() {
+	system("cls");
+	cout << "Is is a turn-based combat." << endl;
+	cout << "In your turn you can select who to attack." << endl;
+	cout << "Then you can choose which type of attack to make." << endl;
+	cout << "Fast - Increases your critical chance 10% but you lose 5% of critical damage." << endl;
+	cout << "Normal - Increase your basic damage 5% but you lose your critical chance in 10%." << endl;
+	cout << "Charged - Increse your basic and critical damage in 10% but you lose your critical chance in 15%." << endl;
+	cout << "Press any key to continue..." << endl;
+	_getch();
+	system("cls");
+}
+
 void Game::typeGameSelection() {
 	int input;
 	do
@@ -52,7 +67,7 @@ void Game::typeGameSelection() {
 		cout << "1 - Standar Game" << endl;
 		cout << "2 - Custom Game" << endl;
 		cout << "3 - Back to menu" << endl;
-		input = intInputLoop("Select a option: ");
+		input = intInputLoop("Select a option: ",41, 0);
 		switch (input)
 		{
 		case 1:
@@ -144,7 +159,7 @@ Warrior* Game::setSelectedWarriors(Warrior warrior) {
 
 	do
 	{
-		selection = intInputLoop("How do you want to attack? (Select number)");
+		selection = intInputLoop("How do you want to attack? (Select number)", 41, 0);
 	} while (selection < 1 || selection > warriors.size() - 1);
 
 	selection = ids[selection - 1];
@@ -160,7 +175,7 @@ AttackType Game::attackTypeSelector() {
 	cout << "3 - Charged" << endl;
 	do
 	{
-		input = intInputLoop("Insert a number: ");
+		input = intInputLoop("Insert a number: ", 41, 0);
 	} while (input < 1 || input > 3);
 
 	switch (input)

@@ -1,6 +1,34 @@
 #include "GeneralFunctions.h"
 
+const char* TITLE_ART =
+R"(
+ __          __  ______ 
+ \ \        / / |  ____|
+  \ \  /\  / /  | |__   
+   \ \/  \/ /   |  __|  
+    \  /\  /    | |     
+     \/  \/     |_|     
+                        
+                        
+)";
+
+int draw() {
+	drawFrame(X_COORDINATE_INIT, Y_COORDINATE_INIT, X_COORDINATE_FINAL, Y_COORDINATE_FINAL);
+	istringstream iss(TITLE_ART);
+	string line;
+	int indexer = 0;
+	while (getline(iss, line)) {
+		indexer++;
+		goToCoordinates(41, indexer);
+		cout << line << endl;
+	}
+	return indexer;
+}
+
 bool intCheacker(string input) {
+	if (input.size() == 0) {
+		return false;
+	}
 	for (char c : input) {
 		if (!isdigit(c)) {
 			return false;
@@ -20,12 +48,13 @@ bool floatCheacker(string input) {
 	}
 }
 
-float floatInputLoop(string question) {
+float floatInputLoop(string question, int x,int y) {
 	string input;
 	bool inputValid = false;
 	do
 	{
 		cout << question << endl;
+		goToCoordinates(x, y + 1);
 		getline(cin, input);
 
 		inputValid = floatCheacker(input);
@@ -34,18 +63,20 @@ float floatInputLoop(string question) {
 			return stoi(input);
 		}
 		else {
+			goToCoordinates(x, y + 2);
 			cout << "Invalid input, try again." << endl;
 		}
 	} while (!inputValid);
 	return 0.f;
 }
 
-int intInputLoop(string question) {
+int intInputLoop(string question, int x, int y) {
 	string input;
 	bool inputValid = false;
 	do
 	{
 		cout << question << endl;
+		goToCoordinates(x, y + 1);
 		getline(cin, input);
 
 		inputValid = intCheacker(input);
@@ -54,6 +85,7 @@ int intInputLoop(string question) {
 			return stoi(input);
 		}
 		else {
+			goToCoordinates(x, y + 2);
 			cout << "Invalid input, try again." << endl;
 		}
 	} while (!inputValid);
@@ -80,4 +112,16 @@ bool yesOrNoLoop(string question) {
 		return true;
 	}
 	return false;
+}
+
+void printData(string& lines, int x, int* startY) {
+	istringstream iss(lines);
+	string line;
+	int y = *startY;
+	while (getline(iss, line, '\n')) {
+		goToCoordinates(x, y);
+		cout << line << endl;
+		y++;
+	}
+	*startY = y;
 }
